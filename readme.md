@@ -77,5 +77,5 @@
 
 
 <p align="center">
-  <img src="https://github.com/HasanBeratSoke/leaves-segmentation/  blob/main/rgbd_plant.gif" />
+  <img src="![image](https://user-images.githubusercontent.com/59448872/209303238-88d23830-b785-4def-9213-f297d136a84b.png)" />
 </p>
