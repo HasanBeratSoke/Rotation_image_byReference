@@ -5,9 +5,10 @@ from skimage.transform import (hough_line, hough_line_peaks)
 from PIL import Image
 import sys
 
-IMG_PATH = 'test2.png'
+IMG_PATH = 'test7.png'
 frame = cv.imread(IMG_PATH)
 im = Image.open(IMG_PATH)
+cv.imshow('frame', frame)
 
 #convert HSV plate
 f_hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
@@ -71,7 +72,7 @@ x3 = cX
 y3 = cY
 
 m2 = float((y3-y1) / (x3 - x1))
-print('eğim m2: ', m2)
+print('slope m2: ', m2)
 xtan = math.atan(m2) #radyan sonucu
 m2_deg = math.degrees(xtan)  # dereye cevrildi
 print('m2_deg: ',m2_deg)
