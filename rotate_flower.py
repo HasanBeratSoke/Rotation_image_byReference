@@ -4,11 +4,40 @@ import numpy as np
 from skimage.transform import (hough_line, hough_line_peaks)
 from PIL import Image
 import sys
+from pyzbar import pyzbar
 
 IMG_PATH = 'test7.png'
 frame = cv.imread(IMG_PATH)
 im = Image.open(IMG_PATH)
 cv.imshow('frame', frame)
+
+image = cv.imread(IMG_PATH, cv.IMREAD_GRAYSCALE)
+barcodes = pyzbar.decode(image)
+
+if(len(barcodes) == 0):
+
+    print('qr code bulunamadı')
+    quit()
+
+else:
+
+
+
+    for barcode in barcodes:
+        (x, y, w, h) = barcode.rect
+        rect = barcode.rect
+        center_x_qr = int(x + w/2)
+        center_y_qr = int(y + h/2)
+        center_qr = (int(rect.left + rect.width / 2), int(rect.top + rect.height / 2))
+        #cv2.rectangle(image, (rect.left, rect.top), (rect.left + rect.width, rect.top + rect.height), (255, 0, 255), 2)
+        #cv2.circle(image, center, 2, (255, 0, 255), 5)
+        qr_code_text =  barcode.data.decode('utf-8')
+        print(qr_code_text)
+    
+    
+    
+    
+    
 
 #convert HSV plate
 f_hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
@@ -68,8 +97,10 @@ x1 = center[0]
 y1 = center[1]
 x2 = center_top[0]
 y2 = center_top[1]
-x3 = cX
-y3 = cY
+#x3 = cX
+x3 = center_x_qr
+#y3 = cY
+y3 = center_y_qr
 
 m2 = float((y3-y1) / (x3 - x1))
 print('slope m2: ', m2)
@@ -85,8 +116,11 @@ def rotation_image(angle):
     cv.imshow('rotated_image', döndürülmüş_resim) 
 
 # Noktanın koordinatları
-x = cX
-y = cY
+#x = cX
+x=center_x_qr
+#y = cY
+y=center_y_qr
+
 # Noktanın hangi bölgede olduğunu bul
 if x <w / 2 and y < h / 2:
     # Görüntü matrisini bir açı derecesinde döndür
